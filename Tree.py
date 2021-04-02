@@ -82,25 +82,30 @@ class Solution():
             return None
         root = Node(preorder[0])
         #print(root.data)
-        index = inorder.index(root.data) # 中序中根节点的位置，左边即为左子树，右边由子树
+        index = inorder.index(root.data)
         root.left = self.buildTree(preorder[1 : index + 1], inorder[0 : index])
         root.right = self.buildTree(preorder[index + 1 : ], inorder[index + 1 :])
 
-        print(root.data)
+        #print(root.data)
+        return root
+
 
 tree = Node()
-#inorder = [9,3,15,20,7]
-#preorder = [3,9,20,15,7]
+inorder = [9,3,15,20,7]
+preorder = [3,9,20,15,7]
 #xxx = [10,21,5,9,13,28]
+#中序  先處理最左子點  在處理父節點  在處理右子點
+#inorder = ['C','B','E','D','F','N','J','X','A','G','I','H','Y','L','K','M','Z',]
+#前序  經過的節點都處理，往左下走，再往右下
+#preorder = ['A','B','C','D','E','F','J','N','X','G','H','I','K','L','Y','M','Z',]
+
 P = ['C','E','N','X','J','F','D','B','I','Y','L','Z','M','K','H','G','A']
-for i in P:
+p1 = ['A','G','H','K','M','Z','L','Y','I','B','D','F','J','X','N','E','C']
+for i in preorder :
     tree.insert(i)
 tree.preorder()
-#中序  先處理最左子點  在處理父節點  在處理右子點
-inorder = ['C','B','E','D','F','N','J','X','A','G','I','H','Y','L','K','M','Z',]
-#前序  經過的節點都處理，往左下走，再往右下
-preorder = ['A','B','C','D','E','F','J','N','X','G','H','I','K','L','Y','M','Z',]
-
-
+print(type(tree))
 SO  = Solution()
 x = SO.buildTree(preorder,inorder)
+
+print(x.data)
