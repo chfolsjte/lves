@@ -69,43 +69,65 @@ class Node():
 
     def pporder(self) :
 
-        if self.right:
-            self.right.inorder()
-        print(self.data)
         if self.left:
-            self.left.inorder()
+            self.left.pporder()
+        if self.right:
+            self.right.pporder()
+        print(self.data)
 
 
-class Solution():
+class POST():
     def buildTree(self, preorder, inorder):
         if len(preorder) == 0:
             return None
-        root = Node(preorder[0])
-        #print(root.data)
-        index = inorder.index(root.data)
-        root.left = self.buildTree(preorder[1 : index + 1], inorder[0 : index])
-        root.right = self.buildTree(preorder[index + 1 : ], inorder[index + 1 :])
+        root1 = Node(preorder[0])
+        index = inorder.index(root1.data)
+        root1.left = self.buildTree(preorder[1 : index + 1], inorder[0 : index])
+        root1.right = self.buildTree(preorder[index + 1 : ], inorder[index + 1 :])
+        tree1.append(root1.data)
+        return root1
+class PRE():
+    def buildTree(self, postorder, inorder):
+        if len(postorder) == 0:
+            return None
+        root = Node(postorder[-1])
+        #print(tree)
+        index = inorder.index(root.data)  #8
+        tree.append(root.data)
+        root.left = self.buildTree(postorder[ :index ], inorder[:index])
 
-        #print(root.data)
+        root.right = self.buildTree(postorder[index: -1], inorder[index+1:])
+
         return root
 
-
-tree = Node()
-inorder = [9,3,15,20,7]
-preorder = [3,9,20,15,7]
+tree = []
+tree1=[]
+tree2=[]
+tree4=[]
+#inorder = [9,3,15,20,7]
+#preorder = [3,9,20,15,7]
 #xxx = [10,21,5,9,13,28]
 #中序  先處理最左子點  在處理父節點  在處理右子點
-#inorder = ['C','B','E','D','F','N','J','X','A','G','I','H','Y','L','K','M','Z',]
+TY = [10,21,5,9,13,28]
+inorder = ['C','B','E','D','F','N','J','X',   'A',  'G','I','H','Y','L','K','M','Z']
+
+postorder = ['C', 'E', 'N', 'X', 'J', 'F', 'D',     'B',     'I', 'Y', 'L', 'Z', 'M', 'K', 'H', 'G', 'A']
 #前序  經過的節點都處理，往左下走，再往右下
-#preorder = ['A','B','C','D','E','F','J','N','X','G','H','I','K','L','Y','M','Z',]
+preorder = ['A','B','C','D','E','F','J','N','X','G','H','I','K','L','Y','M','Z',]
+j = Node()
+po  = POST()
+x = po.buildTree(preorder,inorder)
+pr = PRE()
+x1 = pr.buildTree(postorder,inorder)
+#print(tree)
+#print(tree1)
+#for i in postorder :
+#    j.insert(i)
+#tree2.append(j)
+#print(x.right.data)
+for i in TY:
+    j.insert(i)
 
-P = ['C','E','N','X','J','F','D','B','I','Y','L','Z','M','K','H','G','A']
-p1 = ['A','G','H','K','M','Z','L','Y','I','B','D','F','J','X','N','E','C']
-for i in preorder :
-    tree.insert(i)
-tree.preorder()
-print(type(tree))
-SO  = Solution()
-x = SO.buildTree(preorder,inorder)
-
-print(x.data)
+j.pporder()
+tree4.append(j)
+print('tree=',tree4[0].data)
